@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c85e2443-fc69-4034-acc2-77036aa4abd9" name="Changes" comment="Added LLM query functionality" />
+    <list default="true" id="c85e2443-fc69-4034-acc2-77036aa4abd9" name="Changes" comment="Added LLM query functionality">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +23,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "CarandangC"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/CarandangC/Book-Recommendation-System.git",
@@ -77,7 +86,7 @@
       <workItem from="1764605814219" duration="2890000" />
       <workItem from="1764614827411" duration="222000" />
       <workItem from="1764616328386" duration="5060000" />
-      <workItem from="1764689764423" duration="2617000" />
+      <workItem from="1764689764423" duration="3002000" />
     </task>
     <task id="LOCAL-00001" summary="Added LLM query functionality">
       <option name="closed" value="true" />
