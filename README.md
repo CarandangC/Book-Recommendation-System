@@ -8,7 +8,7 @@ An intelligent book recommendation dashboard that goes beyond simple keyword mat
 
 ## 🌟 Features
 
-- **Semantic Search:** Search for books using natural language (e.g., "nature," "world war 2," or "animals for children").
+- **Semantic Search:** Search for books using natural language.
 - **Emotional Tone Filtering:** Filter results by mood—choose "Sad" for a touching memoir or "Happy" for an uplifting children's book.
 - **Category Aware:** Intelligent filtering for Non-Fiction, Fiction, and more.
 - **Deep Content Understanding:** Powered by OpenAI embeddings to find conceptual matches even if the words don't match exactly.
@@ -19,10 +19,10 @@ An intelligent book recommendation dashboard that goes beyond simple keyword mat
 
 ### 🌿 Search for Nature
 *Finding books about the great outdoors using semantic similarity.*
-
+![alt text](image-1.png)
 ### 🎭 Tone & Category Filtering
-*Combining sadness and historical non-fiction to find World War II accounts.*
-
+*Combining sadness and historical non-fiction to find World War II books.*
+![alt text](image-2.png)
 ---
 
 ## 🛠️ Setup & Installation
