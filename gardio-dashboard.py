@@ -19,10 +19,15 @@ books["large_thumbnail"] = np.where(
     books["large_thumbnail"],
 )
 
-# raw_documents = TextLoader("tagged_description.txt", encoding="utf-8").load()
-# text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1, chunk_overlap=0)
+# raw_documents = TextLoader("tagged_description.txt").load()
+# text_splitter = CharacterTextSplitter(separator="\n", chunk_size=0, chunk_overlap=0)
 # documents = text_splitter.split_documents(raw_documents)
 # db_books = Chroma.from_documents(documents, OpenAIEmbeddings())
+
+db_books_reloaded = Chroma(
+    embedding_function=OpenAIEmbeddings(),
+    persist_directory="chroma_store_books"
+)
 
 def retrieve_semantic_recommendations(
         query: str,
@@ -32,14 +37,14 @@ def retrieve_semantic_recommendations(
         final_top_k: int = 16,
 ) -> pd.DataFrame:
 
-    recs = db_books.similarity_search_with_score(query, k=initial_top_k)
+    recs = db_books_reloaded.similarity_search(query, k=initial_top_k)
     books_list = [int(rec.page_content.strip('"').split()[0]) for rec in recs]
-    book_recs = books[books["isbn13"].isin(books_list)].head(final_top_k)
+    book_recs = books[books["isbn13"].isin(books_list)].head(initial_top_k)
 
     if category != "All":
         book_recs = book_recs[book_recs["simple_categories"] == category].head(final_top_k)
     else:
-        book_recs - book_recs.head(final_top_k)
+        book_recs = book_recs.head(final_top_k)
 
     if tone == "Happy":
         book_recs.sort_values(by="joy", ascending=False, inplace=True)
@@ -51,15 +56,17 @@ def retrieve_semantic_recommendations(
         book_recs.sort_values(by="fear", ascending=False, inplace=True)
     elif tone == "Sad":
         book_recs.sort_values(by="sadness", ascending=False, inplace=True)
+
     return book_recs
 
+
 def recommend_books(
-    query: str,
-    category: str,
-    tone: str,
+        query: str,
+        category: str,
+        tone: str
 ):
     recommendations = retrieve_semantic_recommendations(query, category, tone)
-    results =[]
+    results = []
 
     for _, row in recommendations.iterrows():
         description = row["description"]
@@ -79,24 +86,25 @@ def recommend_books(
     return results
 
 categories = ["All"] + sorted(books["simple_categories"].unique())
-tones = ["All"] +["Happy", "Surprising", "Angry", "Suspenseful", "Sad"]
+tones = ["All"] + ["Happy", "Surprising", "Angry", "Suspenseful", "Sad"]
 
 with gr.Blocks(theme = gr.themes.Glass()) as dashboard:
     gr.Markdown("# Semantic book recommender")
 
     with gr.Row():
         user_query = gr.Textbox(label = "Please enter a description of a book:",
-                                placeholder = "Eg., A story about forgiveness")
+                                placeholder = "e.g., A story about forgiveness")
         category_dropdown = gr.Dropdown(choices = categories, label = "Select a category:", value = "All")
-        tone_dropdown = gr.Dropdown(choices = tones, label ="Select an emotional tone:", value = "All")
+        tone_dropdown = gr.Dropdown(choices = tones, label = "Select an emotional tone:", value = "All")
         submit_button = gr.Button("Find recommendations")
 
-        gr.Markdown("## Recommendations")
-        output = gr.Gallery(label = "Recommended books", columns = 8, rows = 2)
+    gr.Markdown("## Recommendations")
+    output = gr.Gallery(label = "Recommended books", columns = 8, rows = 2)
 
-        submit_button.click(fn = recommend_books,
-                            inputs =[user_query, category_dropdown, tone_dropdown],
-                            outputs = output)
+    submit_button.click(fn = recommend_books,
+                        inputs = [user_query, category_dropdown, tone_dropdown],
+                        outputs = output)
+
 
 if __name__ == "__main__":
     dashboard.launch()
