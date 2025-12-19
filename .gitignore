@@ -1,1 +1,22 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Secrets and Credentials
 .env
+
+# Python Cache & Logs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.log
+
+# VS Code Settings
+.vscode/
+
+# JetBrains/PyCharm settings
+.idea/
