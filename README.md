@@ -18,10 +18,10 @@ An intelligent book recommendation dashboard that goes beyond simple keyword mat
 ## 📸 Screenshots
 
 ### 🌿 Search for Nature
-*Finding books about the great outdoors using semantic similarity.*
+#### Finding books about the great outdoors using semantic similarity.
 ![alt text](image-1.png)
 ### 🎭 Tone & Category Filtering
-*Combining sadness and historical non-fiction to find World War II books.*
+#### Combining sadness and historical non-fiction to find World War II books.
 ![alt text](image-2.png)
 ---
 
@@ -29,7 +29,6 @@ An intelligent book recommendation dashboard that goes beyond simple keyword mat
 
 ### 1. Clone & Environment
 First, clone this repository and set up your virtual environment:
-```bash
 python -m venv .venv
 .\.venv\Scripts\activate
 
@@ -42,7 +41,11 @@ Add your OpenAI and HuggingFace API keys in the .env file
 ### 3.To launch the interactive Gradio dashboard, run:
 python gardio-dashboard.py
 
-🧠 What I Learned
+## 🧱 Challenges & Solutions
+💰 Cost Optimization (Embeddings)
+Problem: Re-embedding the entire database through OpenAI's API every time the script ran was expensive and inefficient. Solution: Integrated ChromaDB to store the vector embeddings locally. Now, the expensive embedding process only happens once, and the database is simply loaded from disk thereafter.
+
+## 🧠 What I Learned
 This project introduced me to the world of AI and Retrieval-Augmented Generation (RAG):
 
 LangChain: Implementing chains to connect LLMs with private datasets.
